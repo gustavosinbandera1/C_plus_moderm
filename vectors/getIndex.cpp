@@ -6,8 +6,8 @@ using namespace std;
 // Function to print the
 // index of an element
 
-template<typename T, typename U>
-void getIndexx(const T& vecOfElements , const U k) {
+template <typename T, typename U>
+void getIndexx(const T& vecOfElements, const U k) {
     auto it = find(vecOfElements.begin(), vecOfElements.end(), k);
     if (it != vecOfElements.end()) {
         // calculating the index
