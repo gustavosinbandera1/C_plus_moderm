@@ -23,37 +23,48 @@ void printVector(const T& vecOfElements, const std::string delimiter = " , ") {
     std::cout << '\n';
 }
 
+class Print {
+   public:
+    void operator()(int elem) const {
+        std::cout << elem << " ";
+    }
+};
+
 int main() {
     double mydoubles[] = {3.14, 1.41, 2.72, 4.67, 1.73, 1.32, 1.62, 2.58};
-
     std::vector<double> myvector;
+    Print print_it;
 
     myvector.assign(&mydoubles[0], mydoubles + 8);
 
     std::cout << "using default comparison:";
     std::stable_sort(myvector.begin(), myvector.end());
-    for (std::vector<double>::iterator it = myvector.begin(); it != myvector.end(); ++it)
-        std::cout << ' ' << *it;
-    std::cout << '\n';
+    for_each(myvector.begin(), myvector.end(), print_it);
+    std::cout << std::endl;
+
 
     myvector.assign(mydoubles, mydoubles + 8);
 
     std::cout << "using 'compare_as_ints' :";
     std::stable_sort(myvector.begin(), myvector.end(), compare_as_ints);
-    printVector(myvector);
+    for_each(myvector.begin(), myvector.end(), print_it);
+    std::cout << std::endl;
+    // printVector(myvector);
 
     std::cout << "using 'compare_as_double':";
     std::stable_sort(myvector.begin(), myvector.end(), compare_as_double);
-    printVector(myvector);
+    for_each(myvector.begin(), myvector.end(), print_it);
+    std::cout << std::endl;
+    //printVector(myvector);
 
     int ints[]{8, 7, 6, 5, 9, 3, 2, 1, 4, 10};
     std::vector<int> myints;
     myints.assign(ints, ints + 10);
     std::stable_sort(myints.begin(), myints.end());
-    printVector(myints);
-    /* for (std::vector<int>::iterator it = myints.begin(); it != myints.end(); ++it)
-        std::cout << ' ' << *it;
-    std::cout << '\n'; */
 
+    
+    for_each(myints.begin(), myints.end(), print_it);
+    std::cout << std::endl;
+    ///printVector(myints);
     return 0;
 }

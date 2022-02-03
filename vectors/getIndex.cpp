@@ -7,7 +7,24 @@ using namespace std;
 // index of an element
 
 template <typename T, typename U>
-void getIndexx(const T& vecOfElements, const U k) {
+void getIndexx(const T& vecOfElements, const U& k) {
+    std::cout << "LVALUE here ..................." << std::endl;
+    auto it = find(vecOfElements.begin(), vecOfElements.end(), k);
+    if (it != vecOfElements.end()) {
+        // calculating the index
+        // of K
+        int index = it - vecOfElements.begin();
+        cout << index << endl;
+    } else {
+        // If the element is not
+        // present in the vector
+        cout << "-1" << endl;
+    }
+}
+
+template <typename T, typename U>
+void getIndexx(const T&& vecOfElements, const U&& k) {
+    std::cout << "RVALUE here ..................." << std::endl;
     auto it = find(vecOfElements.begin(), vecOfElements.end(), k);
     if (it != vecOfElements.end()) {
         // calculating the index
@@ -58,9 +75,14 @@ int main() {
     // needs to be found
     int ints = 54;
     double dbl = 17.1;
-    getIndexx(v, ints);
-    getIndexx(f, dbl);
-    getIndexx(s, "cruel");
+    getIndexx(v, 54);
+    getIndexx(f, 17.1);
+    getIndexx(s, move("cruel"));
+
+    auto vv = {1, 45, 54, 71, 76, 17};
+    getIndexx(move(vv), 54);
+    getIndexx(move(f), 17.1);
+    getIndexx(move(s), move("cruel"));
 
     return 0;
 }
